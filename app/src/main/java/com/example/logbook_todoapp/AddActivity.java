@@ -103,7 +103,9 @@ public class AddActivity extends AppCompatActivity {
         if (task_name.isEmpty() || task_date.isEmpty() || task_time.isEmpty()) {
             Toast.makeText(this, "Please enter all details", Toast.LENGTH_SHORT).show();
         } else {
+
             dbHelper.addTask(task_name, task_date, task_time);
+            setResult(RESULT_OK);
             finish();
         }
     }
