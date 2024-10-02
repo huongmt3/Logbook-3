@@ -1,11 +1,15 @@
 package com.example.logbook_todoapp;
 
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -16,9 +20,11 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import java.util.Calendar;
+
 public class UpdateActivity extends AppCompatActivity {
 
-    TextView datePicker, timePicker;
+    TextView datePicker, timePicker, showDate, showTime;
     EditText taskName;
     Button updateBtn, deleteBtn;
 
@@ -30,7 +36,9 @@ public class UpdateActivity extends AppCompatActivity {
         setContentView(R.layout.activity_update);
 
         datePicker = findViewById(R.id.date_picker2);
+        showDate = findViewById(R.id.show_date2);
         timePicker = findViewById(R.id.time_picker2);
+        showTime = findViewById(R.id.show_time2);
         taskName = findViewById(R.id.task_name2);
         updateBtn = findViewById(R.id.update_btn);
         deleteBtn = findViewById(R.id.delete_btn);
@@ -44,12 +52,23 @@ public class UpdateActivity extends AppCompatActivity {
             actionBar.setTitle(name);
         }
 
+        datePicker.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {openDatePicker();}
+        });
+
+        timePicker.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {openTimePicker();}
+        });
+
         updateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //Call After Update
                 DatabaseHelper dbHelper = new DatabaseHelper(UpdateActivity.this);
                 dbHelper.updateData(id, name, date, time);
+                setResult(RESULT_OK);
                 finish();
             }
         });
@@ -64,6 +83,39 @@ public class UpdateActivity extends AppCompatActivity {
 
     }
 
+    private void openDatePicker(){
+        Calendar calendar = Calendar.getInstance();
+
+        int YEAR = calendar.get(Calendar.YEAR);
+        int MONTH = calendar.get(Calendar.MONTH);
+        int DATE = calendar.get(Calendar.DATE);
+
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                showDate.setText(day + "/" + (month + 1) + "/" + year);
+            }
+        }, YEAR, MONTH, DATE);
+
+        datePickerDialog.show();
+    }
+
+    private void openTimePicker(){
+        Calendar calendar = Calendar.getInstance();
+
+        int HOUR = calendar.get(Calendar.HOUR);
+        int MINUTE = calendar.get(Calendar.MINUTE);
+
+        TimePickerDialog timePickerDialog = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker timePicker, int hourOfDay, int minute) {
+                showTime.setText(hourOfDay + ":" + minute);
+            }
+        }, HOUR, MINUTE, true);
+
+        timePickerDialog.show();
+    }
+
     void getandSetIntentData(){
         if(getIntent().hasExtra("id") && getIntent().hasExtra("name")
         && getIntent().hasExtra("date") && getIntent().hasExtra("time")) {
@@ -75,8 +127,8 @@ public class UpdateActivity extends AppCompatActivity {
 
             //Setting Intent Data
             taskName.setText(name);
-            datePicker.setText(date);
-            timePicker.setText(time);
+            showDate.setText(date);
+            showTime.setText(time);
         } else {
             Toast.makeText(this, "No data.", Toast.LENGTH_SHORT).show();
         }
@@ -91,6 +143,7 @@ public class UpdateActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialogInterface, int i) {
                 DatabaseHelper dbHelper = new DatabaseHelper(UpdateActivity.this);
                 dbHelper.deleteOneRow(id);
+                setResult(RESULT_OK);
                 finish();
             }
         });
