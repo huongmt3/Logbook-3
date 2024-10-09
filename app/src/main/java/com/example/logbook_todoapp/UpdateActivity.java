@@ -65,11 +65,7 @@ public class UpdateActivity extends AppCompatActivity {
         updateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Call After Update
-                DatabaseHelper dbHelper = new DatabaseHelper(UpdateActivity.this);
-                dbHelper.updateData(id, name, date, time);
-                setResult(RESULT_OK);
-                finish();
+                updateTask();
             }
         });
 
@@ -132,6 +128,18 @@ public class UpdateActivity extends AppCompatActivity {
         } else {
             Toast.makeText(this, "No data.", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private void updateTask(){
+        name = taskName.getText().toString().trim();
+        date = showDate.getText().toString().trim();
+        time = showTime.getText().toString().trim();
+
+        //Call After Update
+        DatabaseHelper dbHelper = new DatabaseHelper(UpdateActivity.this);
+        dbHelper.updateData(id, name, date, time);
+        setResult(RESULT_OK);
+        finish();
     }
 
     void confirmDiaglog(){
