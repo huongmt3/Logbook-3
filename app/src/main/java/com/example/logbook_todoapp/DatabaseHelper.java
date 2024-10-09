@@ -20,6 +20,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String COLUMN_TASK = "task_name";
     private static final String COLUMN_DATE = "date";
     private static final String COLUMN_TIME = "time";
+    //private static final String COLUMN_CHECKED = "isChecked";
 
     DatabaseHelper(@Nullable Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -33,9 +34,25 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 COLUMN_TASK + " TEXT, " +
                 COLUMN_DATE + " TEXT, " +
                 COLUMN_TIME + " TEXT);";
+                //+ COLUMN_CHECKED + " TEXT);";
         db.execSQL(query);
     }
 
+//    void checkStatus(String isChecked){
+//        SQLiteDatabase db = this.getWritableDatabase();
+//        ContentValues cv = new ContentValues();
+//
+//        cv.put(COLUMN_CHECKED, isChecked);
+//
+//        long result = db.insert(TABLE_NAME, null, cv);
+//        if(result == -1 ) {
+//            Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show();
+//        }
+//        else {
+//            Toast.makeText((context, "Task finished", Toast.LENGTH_SHORT).show();
+//        }
+//    }
+//
     @Override
     public void onUpgrade(SQLiteDatabase db, int i, int i1) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);

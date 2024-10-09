@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -36,8 +37,10 @@ public class MainActivity extends AppCompatActivity {
     TextView no_data;
 
     DatabaseHelper dbHelper;
-    ArrayList<String> task_id, task_name, task_date, task_time;
+    ArrayList<String> task_id, task_name, task_date, task_time, is_checked;
     TaskAdapter taskAdapter;
+
+    CheckBox checkBox;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
         add_btn = findViewById(R.id.add_btn);
         empty_image_view = findViewById(R.id.empty_image_view);
         no_data = findViewById(R.id.no_data);
+        //checkBox = findViewById(R.id.checkBox);
 
         add_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,11 +63,22 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+//        checkBox.setOnClickListener(new View.OnClickListener){
+//            @Override
+//            public void onClick(View view){
+//
+//            }
+//        }
+
+//        boolean isChecked = dbHelper.getBoolean("is Checked", false);
+//        checkBox.setChecked(isChecked);
+
         dbHelper = new DatabaseHelper(this);
         task_id = new ArrayList<>();
         task_name = new ArrayList<>();
         task_date = new ArrayList<>();
         task_time = new ArrayList<>();
+        //is_checked = new ArrayList<>();
 
         storeDataInArrays();
 
@@ -105,6 +120,8 @@ public class MainActivity extends AppCompatActivity {
                 task_name.add(cursor.getString(1));
                 task_date.add(cursor.getString(2));
                 task_time.add(cursor.getString(3));
+                //is_checked.add(cursor.getString(4));
+
             }
             empty_image_view.setVisibility(View.GONE);
             no_data.setVisibility(View.GONE);
@@ -125,6 +142,15 @@ public class MainActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+//    @Override
+//    public boolean onCheckBoxClicked(View view){
+//        boolean checked =((CheckBox) view).isChecked(){
+//
+//        }
+//    }
+
+
 
     void confirmDiaglog(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
