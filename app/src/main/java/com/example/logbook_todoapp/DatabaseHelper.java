@@ -79,7 +79,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     Cursor readAllData() {
-        String query = "SELECT * FROM " + TABLE_NAME;
+        String query = "SELECT * FROM " + TABLE_NAME + " ORDER BY " + COLUMN_DATE + " ASC, " + COLUMN_TIME + " ASC ";
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = null;
