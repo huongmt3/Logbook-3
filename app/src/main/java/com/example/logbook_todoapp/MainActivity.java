@@ -29,7 +29,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements TaskAdapter.OnTaskCheckedChangeListener  {
 
     RecyclerView recyclerView;
     FloatingActionButton add_btn;
@@ -51,14 +51,14 @@ public class MainActivity extends AppCompatActivity {
         add_btn = findViewById(R.id.add_btn);
         empty_image_view = findViewById(R.id.empty_image_view);
         no_data = findViewById(R.id.no_data);
-        //checkBox = findViewById(R.id.checkBox);
+//        checkBox = findViewById(R.id.checkBox);
 
         add_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
             Intent intent = new Intent(MainActivity.this, AddActivity.class);
             startActivityForResult(intent, 1);
-
+//            startActivity(intent);
             //startActivity(intent);
             }
         });
@@ -78,11 +78,11 @@ public class MainActivity extends AppCompatActivity {
         task_name = new ArrayList<>();
         task_date = new ArrayList<>();
         task_time = new ArrayList<>();
-        //is_checked = new ArrayList<>();
+        is_checked = new ArrayList<>();
 
         storeDataInArrays();
 
-        taskAdapter = new TaskAdapter(MainActivity.this, this, task_id, task_name, task_date, task_time);
+        taskAdapter = new TaskAdapter(MainActivity.this, this, task_id, task_name, task_date, task_time, is_checked, this);
         recyclerView.setAdapter(taskAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
@@ -100,6 +100,7 @@ public class MainActivity extends AppCompatActivity {
             task_name.clear();
             task_date.clear();
             task_time.clear();
+            is_checked.clear();
 
             //Reload Data from the Database
             storeDataInArrays();
@@ -120,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
                 task_name.add(cursor.getString(1));
                 task_date.add(cursor.getString(2));
                 task_time.add(cursor.getString(3));
-                //is_checked.add(cursor.getString(4));
+                is_checked.add(cursor.getString(4));
 
             }
             empty_image_view.setVisibility(View.GONE);
@@ -142,13 +143,6 @@ public class MainActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
-//    @Override
-//    public boolean onCheckBoxClicked(View view){
-//        boolean checked =((CheckBox) view).isChecked(){
-//
-//        }
-//    }
 
 
 
@@ -177,4 +171,18 @@ public class MainActivity extends AppCompatActivity {
         });
         builder.create().show();
     }
+
+    @Override
+    public void onTaskCheckedChange(int position, boolean isChecked) {
+        // Update the status in the database
+        dbHelper.updateTaskStatus(String.valueOf(task_id.get(position)), isChecked ? "1" : "0");
+
+        // Optionally update the local list
+        is_checked.set(position, isChecked ? "1" : "0");
+    }
+
+//    @Override
+//    public void onTaskCheckedChange(String taskId, boolean isChecked) {
+//        dbHelper.checkStatus(taskId, isChecked);
+//    }
 }

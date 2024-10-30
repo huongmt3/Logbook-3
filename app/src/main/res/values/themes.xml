@@ -6,4 +6,8 @@
     </style>
 
     <style name="Theme.Logbook_TodoApp" parent="Base.Theme.Logbook_TodoApp" />
+
+    <style name="DialogTheme" parent="Theme.AppCompat.Light.Dialog">
+        <item name ="colorAccent">@color/black</item>
+    </style>
 </resources>

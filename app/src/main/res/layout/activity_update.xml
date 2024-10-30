@@ -61,7 +61,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Task Name"
-                    android:textSize="18dp" />
+                    android:textColor="@color/black"
+                    android:textStyle="italic"
+                    android:textSize="20dp" />
 
                 <EditText
                     android:id="@+id/task_name2"
@@ -77,7 +79,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Date"
-                    android:textSize="18dp" />
+                    android:textColor="@color/black"
+                    android:textStyle="italic"
+                    android:textSize="20dp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -94,9 +98,10 @@
                         android:id="@+id/date_picker2"
                         android:layout_width="115dp"
                         android:layout_height="wrap_content"
-                        android:background="#0A5C36"
                         android:gravity="center"
                         android:text="Pick Date"
+                        android:background="@drawable/rounded_corner_view"
+                        android:padding="4dp"
                         android:textColor="@color/white"
                         android:textSize="18dp" />
 
@@ -107,7 +112,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Time"
-                    android:textSize="18dp"/>
+                    android:textColor="@color/black"
+                    android:textStyle="italic"
+                    android:textSize="20dp"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -124,9 +131,10 @@
                         android:id="@+id/time_picker2"
                         android:layout_width="115dp"
                         android:layout_height="wrap_content"
-                        android:background="#0A5C36"
                         android:gravity="center"
                         android:text="Pick Time"
+                        android:background="@drawable/rounded_corner_view"
+                        android:padding="4dp"
                         android:textColor="@color/white"
                         android:textSize="18dp" />
 
@@ -147,7 +155,9 @@
                         android:layout_marginLeft="15dp"
                         android:backgroundTint="#0A5C36"
                         android:text="Update"
-                        android:textColor="@color/white"/>
+                        android:textColor="@color/white"
+                        android:background="@drawable/create_update_rounded_corner"
+                        />
 
                     <TextView
                         android:id="@+id/textView8"
@@ -165,7 +175,9 @@
                         android:layout_marginTop="20dp"
                         android:backgroundTint="#A40303"
                         android:text="Delete"
-                        android:textColor="@color/white"/>
+                        android:textColor="@color/white"
+                        android:background="@drawable/create_update_rounded_corner"
+                        />
                 </LinearLayout>
 
             </LinearLayout>

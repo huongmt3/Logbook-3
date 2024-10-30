@@ -1,5 +1,6 @@
 package com.example.logbook_todoapp;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -10,6 +11,7 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -23,22 +25,24 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
 
     private Context context;
     Activity activity;
-    private ArrayList task_id, task_name, task_date, task_time;
+    private ArrayList task_id, task_name, task_date, task_time, is_checked;
 
     Animation translate_anim;
 
-    TaskAdapter(Activity activity,
-                Context context,
-                ArrayList task_id,
-                ArrayList task_name,
-                ArrayList task_date,
-                ArrayList task_time){
-            this.activity = activity;
-            this.context = context;
-            this.task_id = task_id;
-            this.task_name = task_name;
-            this.task_date = task_date;
-            this.task_time = task_time;
+    public interface OnTaskCheckedChangeListener {
+        void onTaskCheckedChange(int position, boolean isChecked);
+    }
+
+    private OnTaskCheckedChangeListener listener;
+    public TaskAdapter(Activity activity, Context context, ArrayList task_id, ArrayList task_name, ArrayList task_date, ArrayList task_time, ArrayList is_checked, OnTaskCheckedChangeListener listener) {
+        this.activity = activity;
+        this.context = context;
+        this.task_id = task_id;
+        this.task_name = task_name;
+        this.task_date = task_date;
+        this.task_time = task_time;
+        this.is_checked = is_checked;
+        this.listener = listener;
     }
 
     @NonNull
@@ -51,12 +55,23 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
 
     @RequiresApi (api = Build.VERSION_CODES.M)
     @Override
-    public void onBindViewHolder(@NonNull final TaskAdapter.TaskViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull final TaskAdapter.TaskViewHolder holder, @SuppressLint("RecyclerView") final int position) {
         holder.task_id_txt.setText(String.valueOf(task_id.get(position)));
         holder.task_name_txt.setText(String.valueOf(task_name.get(position)));
         holder.task_date_txt.setText(String.valueOf(task_date.get(position)));
         holder.task_time_txt.setText(String.valueOf(task_time.get(position)));
-        holder.checkBox.setChecked(false);
+
+        String checkedValue = String.valueOf(is_checked.get(position));
+        holder.checkBox.setOnCheckedChangeListener(null);
+        holder.checkBox.setChecked(checkedValue.equals("1"));
+
+        String taskId = String.valueOf(task_id.get(position));
+
+        // Handle checkbox change
+        holder.checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            listener.onTaskCheckedChange(position, isChecked);
+        });
+
         holder.main_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -65,6 +80,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
                 intent.putExtra("name", String.valueOf(task_name.get(position)));
                 intent.putExtra("date", String.valueOf(task_date.get(position)));
                 intent.putExtra("time", String.valueOf(task_time.get(position)));
+                //intent.putExtra()
 
                 activity.startActivityForResult(intent, 1);
             }

@@ -86,7 +86,7 @@ public class UpdateActivity extends AppCompatActivity {
         int MONTH = calendar.get(Calendar.MONTH);
         int DATE = calendar.get(Calendar.DATE);
 
-        DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this, R.style.DialogTheme, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                 showDate.setText(day + "/" + (month + 1) + "/" + year);
@@ -102,9 +102,10 @@ public class UpdateActivity extends AppCompatActivity {
         int HOUR = calendar.get(Calendar.HOUR);
         int MINUTE = calendar.get(Calendar.MINUTE);
 
-        TimePickerDialog timePickerDialog = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
+        TimePickerDialog timePickerDialog = new TimePickerDialog(this, R.style.DialogTheme, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker timePicker, int hourOfDay, int minute) {
+                String formattedTime = String.format("%02d:%02d", hourOfDay, minute);
                 showTime.setText(hourOfDay + ":" + minute);
             }
         }, HOUR, MINUTE, true);

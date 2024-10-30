@@ -9,76 +9,105 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp">
+        android:layout_height="wrap_content">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="16dp">
+            android:orientation="vertical">
 
-            <CheckBox
-                android:id="@+id/checkBox"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/task_name_txt"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:text="Task 1"
-                android:textColor="@color/black"
-                android:textSize="20dp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toEndOf="@+id/checkBox" />
+                android:orientation="horizontal"
+                android:padding="24dp">
 
-            <TextView
-                android:id="@+id/task_date_txt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="02/11/2020"
-                android:textSize="18dp"
-                android:textStyle="italic"
-                app:layout_constraintStart_toStartOf="@+id/task_name_txt"
-                app:layout_constraintTop_toBottomOf="@+id/task_name_txt" />
+                <CheckBox
+                    android:id="@+id/checkBox"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="16dp"/>
 
-            <TextView
-                android:id="@+id/task_time_txt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="02:11"
-                android:textSize="18dp"
-                android:textStyle="italic"
-                app:layout_constraintStart_toStartOf="@+id/task_date_txt"
-                app:layout_constraintTop_toBottomOf="@+id/task_date_txt" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/task_id_txt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="14dp"
-                android:layout_marginEnd="8dp"
-                android:text="1"
-                android:textColor="#909090"
-                android:textSize="24dp"
+                    <TextView
+                        android:id="@+id/task_name_txt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:text="Task 1"
+                        android:textColor="@color/black"
+                        android:textSize="20dp"
+                        android:textStyle="bold" />
 
-                android:textStyle="italic"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginStart="16dp">
 
-            <!--ImageView
-                android:id="@+id/delete_main"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/task_id_txt"
-                app:srcCompat="@drawable/ic_delete_2" /-->
+                        <ImageView
+                            android:id="@+id/imageView3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            app:srcCompat="@drawable/ic_time" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                        <TextView
+                            android:id="@+id/task_date_txt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:text="02/11/2020"
+                            android:textSize="18dp"
+                            android:layout_marginTop="8dp"
+                            android:textStyle="italic" />
+
+                        <ImageView
+                            android:id="@+id/imageView4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginStart="32dp"
+                            app:srcCompat="@drawable/ic_date" />
+                        <TextView
+                            android:id="@+id/task_time_txt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="8dp"
+                            android:text="02:11"
+                            android:textSize="18dp"
+                            android:textStyle="italic" />
+
+                        <TextView
+                            android:id="@+id/task_id_txt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="13dp"
+                            android:layout_marginEnd="8dp"
+                            android:text="1"
+                            android:textColor="#909090"
+                            android:textSize="24dp"
+
+                            android:textStyle="italic"
+                            android:visibility="gone" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#6e6e6e"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:layout_editor_absoluteX="32dp" />
     </androidx.cardview.widget.CardView>
 </LinearLayout>
