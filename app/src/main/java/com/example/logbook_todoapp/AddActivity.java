@@ -26,6 +26,7 @@ public class AddActivity extends AppCompatActivity {
     Button addBtn;
     DatabaseHelper dbHelper;
 
+    //Called when the activity is created
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +41,7 @@ public class AddActivity extends AppCompatActivity {
 
         dbHelper = new DatabaseHelper(this);
 
+        //Set click listener for date and time picker
         datePicker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -54,6 +56,7 @@ public class AddActivity extends AppCompatActivity {
             }
         });
 
+        //Click listener for add button
         addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -62,6 +65,7 @@ public class AddActivity extends AppCompatActivity {
         });
     }
 
+    //Open date picker dialog
     private void openDatePicker(){
         Calendar calendar = Calendar.getInstance();
 
@@ -79,6 +83,7 @@ public class AddActivity extends AppCompatActivity {
         datePickerDialog.show();
     }
 
+    //Open time picker dialog
     private void openTimePicker(){
         Calendar calendar = Calendar.getInstance();
 
@@ -96,15 +101,18 @@ public class AddActivity extends AppCompatActivity {
         timePickerDialog.show();
     }
 
+    //Save task to the database
     private void saveTask() {
         String task_name = taskName.getText().toString().trim();
         String task_date = showDate.getText().toString().trim();
         String task_time = showTime.getText().toString().trim();
 
+        //Check if any field is empty
         if (task_name.isEmpty() || task_date.isEmpty() || task_time.isEmpty()) {
             Toast.makeText(this, "Please enter all details", Toast.LENGTH_SHORT).show();
         } else {
 
+            //Add to the database
             dbHelper.addTask(task_name, task_date, task_time);
             setResult(RESULT_OK);
             finish();

@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity implements TaskAdapter.OnTas
 
     CheckBox checkBox;
 
+    //Call this when the activity is created
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +54,7 @@ public class MainActivity extends AppCompatActivity implements TaskAdapter.OnTas
         no_data = findViewById(R.id.no_data);
 //        checkBox = findViewById(R.id.checkBox);
 
+        //Listener for add button
         add_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -73,6 +75,7 @@ public class MainActivity extends AppCompatActivity implements TaskAdapter.OnTas
 //        boolean isChecked = dbHelper.getBoolean("is Checked", false);
 //        checkBox.setChecked(isChecked);
 
+        //Initialise database helper and array lists
         dbHelper = new DatabaseHelper(this);
         task_id = new ArrayList<>();
         task_name = new ArrayList<>();
@@ -80,13 +83,16 @@ public class MainActivity extends AppCompatActivity implements TaskAdapter.OnTas
         task_time = new ArrayList<>();
         is_checked = new ArrayList<>();
 
+        //Store data from the database into arrays
         storeDataInArrays();
 
+        //Set up RecyclerView
         taskAdapter = new TaskAdapter(MainActivity.this, this, task_id, task_name, task_date, task_time, is_checked, this);
         recyclerView.setAdapter(taskAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
+    //Called when an activity user launched exits
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -110,6 +116,7 @@ public class MainActivity extends AppCompatActivity implements TaskAdapter.OnTas
         }
     }
 
+    //Store data from the database into arrays
     void storeDataInArrays(){
         Cursor cursor = dbHelper.readAllData();
         if(cursor.getCount() == 0){
@@ -129,6 +136,7 @@ public class MainActivity extends AppCompatActivity implements TaskAdapter.OnTas
         }
     }
 
+    //Create menu to delete all tasks
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -136,6 +144,7 @@ public class MainActivity extends AppCompatActivity implements TaskAdapter.OnTas
         return super.onCreateOptionsMenu(menu);
     }
 
+    //Handle item selections in the menu
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId() == R.id.delete_all) {
@@ -144,8 +153,7 @@ public class MainActivity extends AppCompatActivity implements TaskAdapter.OnTas
         return super.onOptionsItemSelected(item);
     }
 
-
-
+    //Confirm diaglog for delete all tasks
     void confirmDiaglog(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Delete All Tasks?");
@@ -172,12 +180,13 @@ public class MainActivity extends AppCompatActivity implements TaskAdapter.OnTas
         builder.create().show();
     }
 
+    //Handle task checked change events
     @Override
     public void onTaskCheckedChange(int position, boolean isChecked) {
-        // Update the status in the database
+        //Update the status in the database
         dbHelper.updateTaskStatus(String.valueOf(task_id.get(position)), isChecked ? "1" : "0");
 
-        // Optionally update the local list
+        //Optionally update the local list
         is_checked.set(position, isChecked ? "1" : "0");
     }
 

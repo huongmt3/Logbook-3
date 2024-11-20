@@ -52,6 +52,7 @@ public class UpdateActivity extends AppCompatActivity {
             actionBar.setTitle(name);
         }
 
+        //Click listener for date and time picker
         datePicker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {openDatePicker();}
@@ -62,6 +63,7 @@ public class UpdateActivity extends AppCompatActivity {
             public void onClick(View view) {openTimePicker();}
         });
 
+        //Click listener for update and delete button
         updateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -79,6 +81,7 @@ public class UpdateActivity extends AppCompatActivity {
 
     }
 
+    //Open date picker dialog
     private void openDatePicker(){
         Calendar calendar = Calendar.getInstance();
 
@@ -96,6 +99,7 @@ public class UpdateActivity extends AppCompatActivity {
         datePickerDialog.show();
     }
 
+    //Open time picker dialog
     private void openTimePicker(){
         Calendar calendar = Calendar.getInstance();
 
@@ -113,6 +117,7 @@ public class UpdateActivity extends AppCompatActivity {
         timePickerDialog.show();
     }
 
+    //Get and set intent data
     void getandSetIntentData(){
         if(getIntent().hasExtra("id") && getIntent().hasExtra("name")
         && getIntent().hasExtra("date") && getIntent().hasExtra("time")) {
@@ -131,6 +136,7 @@ public class UpdateActivity extends AppCompatActivity {
         }
     }
 
+    //Update task to the database
     private void updateTask(){
         name = taskName.getText().toString().trim();
         date = showDate.getText().toString().trim();
@@ -143,6 +149,7 @@ public class UpdateActivity extends AppCompatActivity {
         finish();
     }
 
+    //Show diaglog when user click delete button
     void confirmDiaglog(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Delete " + name + "?");
@@ -162,6 +169,6 @@ public class UpdateActivity extends AppCompatActivity {
 
             }
         });
-        builder.create().show();
+        builder.create().show(); //Show confirm dialog
     }
 }

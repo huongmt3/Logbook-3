@@ -21,14 +21,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
+//Adapter for RecyclerView
 public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder> {
 
+    //Declare variables
     private Context context;
     Activity activity;
     private ArrayList task_id, task_name, task_date, task_time, is_checked;
 
     Animation translate_anim;
 
+    //Handle task status change event
     public interface OnTaskCheckedChangeListener {
         void onTaskCheckedChange(int position, boolean isChecked);
     }
@@ -45,6 +48,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
         this.listener = listener;
     }
 
+    //Create new view
     @NonNull
     @Override
     public TaskAdapter.TaskViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -53,9 +57,11 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
         return new TaskViewHolder(view);
     }
 
+    //Bind data to the view holder
     @RequiresApi (api = Build.VERSION_CODES.M)
     @Override
     public void onBindViewHolder(@NonNull final TaskAdapter.TaskViewHolder holder, @SuppressLint("RecyclerView") final int position) {
+        //Set task details in the view holder
         holder.task_id_txt.setText(String.valueOf(task_id.get(position)));
         holder.task_name_txt.setText(String.valueOf(task_name.get(position)));
         holder.task_date_txt.setText(String.valueOf(task_date.get(position)));
@@ -72,6 +78,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
             listener.onTaskCheckedChange(position, isChecked);
         });
 
+        //Handle update or create task by click on the task
         holder.main_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -87,11 +94,13 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
         });
     }
 
+    //Get total number of tasks
     @Override
     public int getItemCount() {
         return task_id.size();
     }
 
+    //Hold view for each task
     public class TaskViewHolder extends RecyclerView.ViewHolder{
 
         TextView task_id_txt, task_name_txt, task_date_txt, task_time_txt;
