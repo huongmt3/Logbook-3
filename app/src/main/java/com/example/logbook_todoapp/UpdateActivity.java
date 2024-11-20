@@ -142,11 +142,15 @@ public class UpdateActivity extends AppCompatActivity {
         date = showDate.getText().toString().trim();
         time = showTime.getText().toString().trim();
 
-        //Call After Update
-        DatabaseHelper dbHelper = new DatabaseHelper(UpdateActivity.this);
-        dbHelper.updateData(id, name, date, time);
-        setResult(RESULT_OK);
-        finish();
+        if (name.isEmpty()) {
+            Toast.makeText(this, "Please enter task name", Toast.LENGTH_SHORT).show();
+        } else {
+            //Call After Update
+            DatabaseHelper dbHelper = new DatabaseHelper(UpdateActivity.this);
+            dbHelper.updateData(id, name, date, time);
+            setResult(RESULT_OK);
+            finish();
+        }
     }
 
     //Show diaglog when user click delete button

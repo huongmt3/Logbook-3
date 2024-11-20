@@ -118,6 +118,5 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
             translate_anim = AnimationUtils.loadAnimation(context, R.anim.translate_anim);
             main_layout.setAnimation(translate_anim);
         }
-
     }
 }

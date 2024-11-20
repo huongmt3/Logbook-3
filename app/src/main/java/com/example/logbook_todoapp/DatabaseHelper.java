@@ -42,24 +42,24 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(query);
     }
 
-    //Update the check status
-    void checkStatus(String row_id, boolean isChecked) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues cv = new ContentValues();
-
-        //Set the checked status: 1 for checked, 0 for unchecked
-        cv.put(COLUMN_CHECKED, isChecked ? 1 : 0);
-
-        //Update the row in the database where the ID matches
-        long result = db.update(TABLE_NAME, cv, COLUMN_ID + "=?", new String[]{row_id});
-
-        //Check the result of the update operation
-        if (result == -1) {
-            Toast.makeText(context, "Error updating task status", Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(context, "Task status updated!", Toast.LENGTH_SHORT).show();
-        }
-    }
+//    //Update the check status
+//    void checkStatus(String row_id, boolean isChecked) {
+//        SQLiteDatabase db = this.getWritableDatabase();
+//        ContentValues cv = new ContentValues();
+//
+//        //Set the checked status: 1 for checked, 0 for unchecked
+//        cv.put(COLUMN_CHECKED, isChecked ? 1 : 0);
+//
+//        //Update the row in the database where the ID matches
+//        long result = db.update(TABLE_NAME, cv, COLUMN_ID + "=?", new String[]{row_id});
+//
+//        //Check the result of the update operation
+//        if (result == -1) {
+//            Toast.makeText(context, "Error updating task status", Toast.LENGTH_SHORT).show();
+//        } else {
+//            Toast.makeText(context, "Task status updated!", Toast.LENGTH_SHORT).show();
+//        }
+//    }
 
     //Upgrade database
     @Override
