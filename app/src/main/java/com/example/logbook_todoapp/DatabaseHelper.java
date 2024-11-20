@@ -151,5 +151,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     void deleteAllData() {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("DELETE FROM " + TABLE_NAME);
+        Toast.makeText(context, "All Tasks Deleted!", Toast.LENGTH_SHORT).show();
     }
 }
